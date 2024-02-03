@@ -41,18 +41,18 @@ SOFTWARE.
 #include <dmaKit.h>
 #include <gsToolkit.h>
 
-extern unsigned int size_iomanX;
-extern unsigned char iomanX[];
+extern unsigned int size_iomanX_irx;
+extern unsigned char iomanX_irx[];
 
-extern unsigned int size_usbd;
-extern unsigned char usbd[];
+extern unsigned int size_usbd_irx;
+extern unsigned char usbd_irx[];
 
-extern unsigned int size_ps2mouse;
-extern unsigned char ps2mouse[];
+extern unsigned int size_ps2mouse_irx;
+extern unsigned char ps2mouse_irx[];
 
 gsGlobal *g_gsInst;
 
- u64 gs_BackgroundColors[] =
+u64 gs_BackgroundColors[] =
 {
     GS_SETREG_RGBAQ(255,0,0,0,0),
     GS_SETREG_RGBAQ(0,255,0,0,0),
@@ -74,11 +74,11 @@ int main(void)
     SifInitRpc(0);
 	sbv_patch_enable_lmb(); // Wasted a couple hours only to find out this needs to be called 
     
-    int ret = SifExecModuleBuffer(iomanX,size_iomanX,0,NULL,NULL);
+    int ret = SifExecModuleBuffer(iomanX_irx,size_iomanX_irx,0,NULL,NULL);
     printf("iomanx module id %d\n",ret);
-    ret = SifExecModuleBuffer(usbd,size_usbd,0,NULL,NULL);
+    ret = SifExecModuleBuffer(usbd_irx,size_usbd_irx,0,NULL,NULL);
     printf("usbd module id %d\n",ret);
-    ret = SifExecModuleBuffer(ps2mouse,size_ps2mouse,0,NULL,NULL);
+    ret = SifExecModuleBuffer(ps2mouse_irx,size_ps2mouse_irx,0,NULL,NULL);
     printf("ps2mouse module id %d\n",ret);
 
     ret = PS2MouseInit();
